@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.luis.ui.theme.Lab03RegistroProductoTheme
+import androidx.compose.ui.graphics.Color
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +71,6 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Campo nombre
         OutlinedTextField(
             value = nombre,
             onValueChange = { nombre = it },
@@ -86,14 +86,12 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
         )
 
 
-        // Precio y cantidad en una misma fila
         Row(
             modifier = Modifier.fillMaxWidth()
         )
 
         {
 
-            // Campo precio
             OutlinedTextField(
                 value = precio,
                 onValueChange = { precio = it },
@@ -109,7 +107,6 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
             )
 
 
-            // Campo cantidad
             OutlinedTextField(
                 value = cantidad,
                 onValueChange = { cantidad = it },
@@ -136,7 +133,6 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
             val precioNum = precio.toDoubleOrNull() ?: 0.0
             val cantidadNum = cantidad.toIntOrNull() ?: 0
 
-            // AQUÍ debes calcular precio x cantidad
             val importe = precioNum * cantidadNum
 
             Card(
@@ -169,7 +165,13 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
+
             }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "✓ Producto registrado correctamente",
+                color = Color(0xFF2E7D32))
         }
     }
 }

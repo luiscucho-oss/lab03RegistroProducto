@@ -123,14 +123,28 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
+
                 if (
                     nombre.isBlank() ||
                     precio.isBlank() ||
                     cantidad.isBlank()
                 ) {
+
                     mensajeError = "Completa todos los campos"
                     mostrarResumen = false
+
+                } else if (precio.toDoubleOrNull() == null) {
+
+                    mensajeError = "El precio debe ser un número válido"
+                    mostrarResumen = false
+
+                } else if (cantidad.toIntOrNull() == null) {
+
+                    mensajeError = "La cantidad debe ser un número entero válido"
+                    mostrarResumen = false
+
                 } else {
+
                     mensajeError = ""
                     mostrarResumen = true
                 }
@@ -139,6 +153,7 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
         ) {
             Text("AGREGAR PRODUCTO")
         }
+
 
         Spacer(modifier = Modifier.height(12.dp))
 

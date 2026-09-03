@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.luis.ui.theme.Lab03RegistroProductoTheme
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.OutlinedButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +54,7 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
     var precio by remember { mutableStateOf("") }
     var cantidad by remember { mutableStateOf("") }
     var mostrarResumen by remember { mutableStateOf(false) }
+    var mensajeError by remember { mutableStateOf("") }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -120,13 +122,47 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { mostrarResumen = true },
+            onClick = {
+                if (
+                    nombre.isBlank() ||
+                    precio.isBlank() ||
+                    cantidad.isBlank()
+                ) {
+                    mensajeError = "Completa todos los campos"
+                    mostrarResumen = false
+                } else {
+                    mensajeError = ""
+                    mostrarResumen = true
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("AGREGAR PRODUCTO")
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedButton(
+            onClick = {
+                nombre = ""
+                precio = ""
+                cantidad = ""
+                mostrarResumen = false
+                mensajeError = ""
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("LIMPIAR")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        if (mensajeError.isNotEmpty()) {
+            Text(
+                text = mensajeError,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
 
         if (mostrarResumen) {
 
